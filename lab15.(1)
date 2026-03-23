@@ -1,0 +1,103 @@
+﻿
+using System;
+
+class Account
+{
+    protected int accountNumber;
+    protected string holderName;
+    protected double balance;
+
+    public Account(int accNo, string name, double bal)
+    {
+        accountNumber = accNo;
+        holderName = name;
+        balance = bal;
+    }
+
+    public void Deposit(double amount)
+    {
+        balance += amount;
+        Console.WriteLine("Deposited: " + amount);
+    }
+
+    public virtual void Withdraw(double amount)
+    {
+        if (amount <= balance)
+        {
+            balance -= amount;
+            Console.WriteLine("Withdrawn: " + amount);
+        }
+        else
+        {
+            Console.WriteLine("Insufficient balance");
+        }
+    }
+
+    public void Display()
+    {
+        Console.WriteLine($"Account No: {accountNumber}, Name: {holderName}, Balance: {balance}");
+    }
+}
+
+class SavingsAccount : Account
+{
+    double minBalance = 500;
+
+    public SavingsAccount(int accNo, string name, double bal)
+        : base(accNo, name, bal) { }
+
+    public override void Withdraw(double amount)
+    {
+        if (balance - amount >= minBalance)
+        {
+            balance -= amount;
+            Console.WriteLine("Savings Withdrawn: " + amount);
+        }
+        else
+        {
+            Console.WriteLine("Cannot withdraw! Minimum balance must be maintained.");
+        }
+    }
+}
+class CurrentAccount : Account
+{
+    double overdraftLimit = 1000;
+
+    public CurrentAccount(int accNo, string name, double bal)
+        : base(accNo, name, bal) { }
+    public override void Withdraw(double amount)
+    {
+        if (balance + overdraftLimit >= amount)
+        {
+            balance -= amount;
+            Console.WriteLine("Current Withdrawn: " + amount);
+        }
+        else
+        {
+            Console.WriteLine("Overdraft limit exceeded!");
+        }
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Account acc1 = new SavingsAccount(101, "Alice", 2000);
+        Account acc2 = new CurrentAccount(102, "Bob", 1000);
+
+        Console.WriteLine("Savings Account:");
+        acc1.Deposit(500);
+        acc1.Withdraw(1800);
+        acc1.Display();
+
+        Console.WriteLine("\nCurrent Account:");
+        acc2.Deposit(500);
+        acc2.Withdraw(2200);
+        acc2.Display();
+    }
+}
+
+
+
+
