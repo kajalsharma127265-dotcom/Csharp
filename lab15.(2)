@@ -1,0 +1,84 @@
+﻿
+CHITRA PADIA
+10:08 AM(18 minutes ago)
+to me
+
+using System
+class BaseClass
+{
+    
+    public int id;
+    public string name;
+
+    
+    public BaseClass(int id, string name)
+    {
+        this.id = id;
+        this.name = name;
+    }
+
+    
+    public void DisplayBase()
+    {
+        Console.WriteLine("ID: " + id);
+        Console.WriteLine("Name: " + name);
+    }
+}
+
+
+class DerivedOne : BaseClass
+{
+   public double salary;
+
+   
+    public DerivedOne(int id, string name, double salary)
+        : base(id, name)
+    {
+        this.salary = salary;
+    }
+
+    public void DisplayDerivedOne()
+    {
+        DisplayBase();
+        Console.WriteLine("Salary: " + salary);
+    }
+}
+
+class DerivedTwo : BaseClass
+{
+    
+    public string department;
+
+    
+    public DerivedTwo(int id, string name, string department)
+        : base(id, name)
+    {
+        this.department = department;
+    }
+
+    public void DisplayDerivedTwo()
+    {
+        DisplayBase();
+        Console.WriteLine("Department: " + department);
+    }
+}
+
+
+class Program
+{
+    static void Main()
+    {
+        DerivedOne obj1 = new DerivedOne(1, "Alice", 50000);
+        DerivedTwo obj2 = new DerivedTwo(2, "Bob", "IT");
+
+        Console.WriteLine("DerivedOne Object:");
+        obj1.DisplayDerivedOne();
+
+        Console.WriteLine("\nDerivedTwo Object:");
+        obj2.DisplayDerivedTwo();
+    }
+}
+
+
+
+
